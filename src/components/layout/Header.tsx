@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingBag, Menu, X, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/useCart";
+import logo from "@/assets/logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,17 +33,11 @@ const Header = () => {
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center">
-              <span className="font-serif text-navy font-bold text-lg">FF</span>
-            </div>
-            <div className="hidden sm:block">
-              <h1 className="font-serif text-lg font-semibold text-foreground leading-tight">
-                Fifi Fashion
-              </h1>
-              <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
-                Wears
-              </p>
-            </div>
+            <img 
+              src={logo} 
+              alt="Fifi Fashion Wears" 
+              className="h-12 md:h-14 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation */}

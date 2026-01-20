@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Instagram, Mail, Phone, MessageCircle } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -15,17 +16,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full bg-gold flex items-center justify-center">
-                <span className="font-serif text-navy font-bold text-xl">FF</span>
-              </div>
-              <div>
-                <h3 className="font-serif text-xl font-semibold">Fifi Fashion</h3>
-                <p className="text-xs tracking-[0.2em] uppercase text-primary-foreground/70">
-                  Wears
-                </p>
-              </div>
-            </div>
+            <Link to="/" className="block mb-6">
+              <img 
+                src={logo} 
+                alt="Fifi Fashion Wears" 
+                className="h-20 w-auto object-contain brightness-0 invert"
+              />
+            </Link>
             <p className="text-sm text-primary-foreground/80 leading-relaxed">
               Creating elegant, well-tailored outfits that highlight confidence and individuality.
             </p>
@@ -62,6 +59,7 @@ const Footer = () => {
                 { name: "Shipping Info", path: "/shipping" },
                 { name: "Returns", path: "/returns" },
                 { name: "Size Guide", path: "/size-guide" },
+                { name: "Track Order", path: "/order-tracking" },
               ].map((link) => (
                 <li key={link.name}>
                   <Link

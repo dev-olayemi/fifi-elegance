@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CartSidebar from "@/components/cart/CartSidebar";
@@ -9,11 +9,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { useCart } from "@/hooks/useCart";
 import { ArrowLeft, Copy, MessageCircle, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
+import { bankApi } from "@/lib/api/banks";
+import { API_URL } from "@/lib/api/config";
 
 const Checkout = () => {
   const { cartItems, getCartTotal, clearCart } = useCart();
+  const navigate = useNavigate();
   const [step, setStep] = useState<"details" | "payment" | "confirmation">("details");
-  const [orderRef, setOrderRef] = useState("");
+  const [orderNumber, setOrderNumber] = useState("");
+  const [banks, setBanks] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -24,18 +29,26 @@ const Checkout = () => {
     state: "",
   });
 
+  useEffect(() => {
+    loadBanks();
+  }, []);
+
+  const loadBanks = async () => {
+    try {
+      const activeBanks = await bankApi.getActive();
+      setBanks(activeBanks);
+    } catch (error) {
+      console.error('Error loading banks:', error);
+      toast.error('Failed to load bank details');
+    }
+  };
+
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-NG", {
       style: "currency",
       currency: "NGN",
       minimumFractionDigits: 0,
     }).format(price);
-  };
-
-  const generateOrderRef = () => {
-    const timestamp = Date.now().toString(36).toUpperCase();
-    const random = Math.random().toString(36).substring(2, 6).toUpperCase();
-    return `FFW-${timestamp}-${random}`;
   };
 
   const handleInputChange = (
@@ -45,18 +58,87 @@ const Checkout = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmitDetails = (e: React.FormEvent) => {
+  const handleSubmitDetails = async (e: React.FormEvent) => {
     e.preventDefault();
-    const ref = generateOrderRef();
-    setOrderRef(ref);
-    setStep("payment");
-    toast.success("Order details saved!");
+    setLoading(true);
+
+    try {
+      // Create order in database - match backend expected format
+      const orderData = {
+        customerInfo: {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          whatsapp: formData.whatsapp || formData.phone,
+        },
+        shippingAddress: {
+          address: formData.address,
+          city: formData.city,
+          state: formData.state,
+        },
+        items: cartItems.map(item => ({
+          productId: item.id,
+          quantity: item.quantity,
+          size: item.size,
+          color: item.color || '',
+          price: item.price,
+        })),
+        subtotal: getCartTotal(),
+        shippingFee: 0, // Will be calculated by admin
+        total: getCartTotal(),
+        notes: '',
+      };
+
+      const response = await fetch(`${API_URL}/orders`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create order');
+      }
+
+      const order = await response.json();
+      setOrderNumber(order.orderNumber);
+      setStep("payment");
+      toast.success("Order created successfully!");
+    } catch (error) {
+      console.error('Error creating order:', error);
+      toast.error(error instanceof Error ? error.message : "Failed to create order. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handlePaymentConfirmed = () => {
-    setStep("confirmation");
-    clearCart();
-    toast.success("Payment confirmation received!");
+  const handlePaymentConfirmed = async () => {
+    try {
+      // Find order by order number first
+      const orderResponse = await fetch(`${API_URL}/orders/track/${orderNumber}`);
+      if (!orderResponse.ok) throw new Error('Order not found');
+      
+      const order = await orderResponse.json();
+      
+      // Update order status to waiting_confirmation using order ID
+      const updateResponse = await fetch(`${API_URL}/orders/${order.id}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          status: 'waiting_confirmation',
+          paymentStatus: 'unpaid'
+        }),
+      });
+
+      if (!updateResponse.ok) throw new Error('Failed to update order status');
+
+      setStep("confirmation");
+      clearCart();
+      toast.success("Payment confirmation received!");
+    } catch (error) {
+      console.error('Error updating order:', error);
+      toast.error("Failed to update order status");
+    }
   };
 
   const copyToClipboard = (text: string) => {
@@ -64,12 +146,12 @@ const Checkout = () => {
     toast.success("Copied to clipboard!");
   };
 
-  const whatsappNumber = "08122815425";
+  const whatsappNumber = "2348122815425";
   const orderSummary = cartItems
     .map((item) => `${item.name} (${item.size}) x${item.quantity} - ${formatPrice(item.price * item.quantity)}`)
     .join("\n");
   const whatsappMessage = encodeURIComponent(
-    `Hello Fifi Fashion Wears,\n\nI have completed my payment.\n\nOrder Reference: ${orderRef}\n\nOrder Details:\n${orderSummary}\n\nTotal: ${formatPrice(getCartTotal())}\n\nCustomer: ${formData.fullName}\nPhone: ${formData.phone}\n\nPlease confirm my order.`
+    `Hello Fifi Fashion Wears,\n\nI have completed my payment.\n\nOrder Number: ${orderNumber}\n\nOrder Details:\n${orderSummary}\n\nTotal: ${formatPrice(getCartTotal())}\n\nCustomer: ${formData.fullName}\nPhone: ${formData.phone}\n\nPlease confirm my order.`
   );
 
   if (cartItems.length === 0 && step !== "confirmation") {
@@ -252,8 +334,14 @@ const Checkout = () => {
                     </div>
                   </div>
 
-                  <Button type="submit" variant="luxury" size="xl" className="w-full">
-                    Continue to Payment
+                  <Button 
+                    type="submit" 
+                    variant="luxury" 
+                    size="xl" 
+                    className="w-full"
+                    disabled={loading}
+                  >
+                    {loading ? 'Creating Order...' : 'Continue to Payment'}
                   </Button>
                 </form>
               )}
@@ -264,13 +352,13 @@ const Checkout = () => {
                   
                   <div className="bg-muted p-6 rounded-lg space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">Order Reference</span>
+                      <span className="text-sm text-muted-foreground">Order Number</span>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-lg">{orderRef}</span>
+                        <span className="font-mono font-bold text-lg">{orderNumber}</span>
                         <button
-                          onClick={() => copyToClipboard(orderRef)}
+                          onClick={() => copyToClipboard(orderNumber)}
                           className="p-1.5 hover:bg-background rounded transition-colors"
-                          aria-label="Copy reference"
+                          aria-label="Copy order number"
                         >
                           <Copy className="w-4 h-4" />
                         </button>
@@ -284,36 +372,47 @@ const Checkout = () => {
                     </div>
                   </div>
 
-                  <div className="border border-border rounded-lg p-6 space-y-4">
-                    <h3 className="font-medium">Bank Transfer Details</h3>
-                    <div className="space-y-3">
-                      <div className="flex justify-between py-2 border-b border-border">
-                        <span className="text-muted-foreground">Bank Name</span>
-                        <span className="font-medium">First Bank of Nigeria</span>
-                      </div>
-                      <div className="flex justify-between py-2 border-b border-border">
-                        <span className="text-muted-foreground">Account Name</span>
-                        <span className="font-medium">Fifi Fashion Wears</span>
-                      </div>
-                      <div className="flex justify-between py-2 border-b border-border">
-                        <span className="text-muted-foreground">Account Number</span>
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono font-medium">3012345678</span>
-                          <button
-                            onClick={() => copyToClipboard("3012345678")}
-                            className="p-1 hover:bg-muted rounded transition-colors"
-                            aria-label="Copy account number"
-                          >
-                            <Copy className="w-4 h-4" />
-                          </button>
+                  {/* Show all active banks */}
+                  {banks.length > 0 ? (
+                    <div className="space-y-4">
+                      <h3 className="font-medium">Bank Transfer Details</h3>
+                      {banks.map((bank) => (
+                        <div key={bank.id} className="border border-border rounded-lg p-6 space-y-4">
+                          <div className="space-y-3">
+                            <div className="flex justify-between py-2 border-b border-border">
+                              <span className="text-muted-foreground">Bank Name</span>
+                              <span className="font-medium">{bank.bankName}</span>
+                            </div>
+                            <div className="flex justify-between py-2 border-b border-border">
+                              <span className="text-muted-foreground">Account Name</span>
+                              <span className="font-medium">{bank.accountName}</span>
+                            </div>
+                            <div className="flex justify-between py-2 border-b border-border">
+                              <span className="text-muted-foreground">Account Number</span>
+                              <div className="flex items-center gap-2">
+                                <span className="font-mono font-medium">{bank.accountNumber}</span>
+                                <button
+                                  onClick={() => copyToClipboard(bank.accountNumber)}
+                                  className="p-1 hover:bg-muted rounded transition-colors"
+                                  aria-label="Copy account number"
+                                >
+                                  <Copy className="w-4 h-4" />
+                                </button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
+                      ))}
                     </div>
-                  </div>
+                  ) : (
+                    <div className="border border-border rounded-lg p-6 text-center">
+                      <p className="text-muted-foreground">Loading bank details...</p>
+                    </div>
+                  )}
 
                   <div className="bg-gold/10 border border-gold/30 rounded-lg p-6">
                     <p className="text-sm mb-4">
-                      <strong>Important:</strong> Please use your order reference <strong>{orderRef}</strong> as 
+                      <strong>Important:</strong> Please use your order number <strong>{orderNumber}</strong> as 
                       the payment description/narration when making the transfer. This helps us identify 
                       your payment quickly.
                     </p>
@@ -362,18 +461,21 @@ const Checkout = () => {
                     contact you shortly to confirm.
                   </p>
                   <div className="bg-muted p-4 rounded-lg inline-block mb-8">
-                    <span className="text-sm text-muted-foreground">Your Order Reference:</span>
-                    <p className="font-mono font-bold text-xl">{orderRef}</p>
+                    <span className="text-sm text-muted-foreground">Your Order Number:</span>
+                    <p className="font-mono font-bold text-xl">{orderNumber}</p>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Button variant="luxury" asChild>
+                      <Link to="/order-tracking">Track Your Order</Link>
+                    </Button>
                     <Button variant="whatsapp" asChild>
                       <a
-                        href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hello, I just placed order ${orderRef}. Please confirm when ready.`)}`}
+                        href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hello, I just placed order ${orderNumber}. Please confirm when ready.`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         <MessageCircle className="w-4 h-4" />
-                        Track via WhatsApp
+                        Contact via WhatsApp
                       </a>
                     </Button>
                     <Button variant="luxuryOutline" asChild>

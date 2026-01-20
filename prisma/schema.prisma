@@ -1,0 +1,150 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// Admin User Model
+model Admin {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Category Model
+model Category {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  image       String?
+  isActive    Boolean   @default(true)
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// Product Model
+model Product {
+  id          String      @id @default(uuid())
+  name        String
+  slug        String      @unique
+  description String
+  price       Float
+  comparePrice Float?
+  images      String      // JSON array of image URLs
+  category    Category    @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  sizes       String      // JSON array of available sizes
+  colors      String?     // JSON array of available colors
+  fabric      String?
+  care        String?     // Care instructions
+  stock       Int         @default(0)
+  isActive    Boolean     @default(true)
+  isFeatured  Boolean     @default(false)
+  metaTitle   String?
+  metaDesc    String?
+  orderItems  OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+// Customer Model
+model Customer {
+  id        String   @id @default(uuid())
+  fullName  String
+  email     String   @unique
+  phone     String
+  whatsapp  String?
+  orders    Order[]
+  bespoke   BespokeRequest[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Order Model
+model Order {
+  id              String      @id @default(uuid())
+  orderNumber     String      @unique
+  customer        Customer    @relation(fields: [customerId], references: [id])
+  customerId      String
+  items           OrderItem[]
+  subtotal        Float
+  shippingFee     Float       @default(0)
+  total           Float
+  status          String      @default("pending_payment") // pending_payment, waiting_confirmation, paid, processing, ready, delivered, cancelled
+  paymentStatus   String      @default("unpaid") // unpaid, paid, refunded
+  paymentRef      String?     // Customer's payment reference
+  shippingAddress String      // JSON object
+  notes           String?
+  paidAt          DateTime?
+  confirmedAt     DateTime?
+  deliveredAt     DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+// Order Item Model
+model OrderItem {
+  id        String   @id @default(uuid())
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId   String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  quantity  Int
+  size      String?
+  color     String?
+  price     Float    // Price at time of order
+  createdAt DateTime @default(now())
+}
+
+// Bespoke Request Model
+model BespokeRequest {
+  id              String   @id @default(uuid())
+  requestNumber   String   @unique
+  customer        Customer @relation(fields: [customerId], references: [id])
+  customerId      String
+  description     String
+  measurements    String   // JSON object
+  budgetRange     String
+  deadline        String?
+  referenceImages String?  // JSON array of Cloudinary URLs
+  status          String   @default("pending") // pending, reviewing, quoted, approved, in_progress, completed, cancelled
+  adminNotes      String?
+  quotedPrice     Float?
+  quotedAt        DateTime?
+  approvedAt      DateTime?
+  completedAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Bank Account Model
+model BankAccount {
+  id          String   @id @default(uuid())
+  bankName    String
+  accountName String
+  accountNumber String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Site Settings Model
+model SiteSetting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  type      String   @default("text") // text, number, boolean, json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

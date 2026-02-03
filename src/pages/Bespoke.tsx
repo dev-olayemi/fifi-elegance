@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MessageCircle, Scissors, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
-import { API_URL } from "@/lib/api/config";
 
 const Bespoke = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -29,40 +28,11 @@ const Bespoke = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    try {
-      const requestData = {
-        customerName: formData.fullName,
-        customerEmail: formData.email,
-        customerPhone: formData.phone,
-        customerWhatsapp: formData.whatsapp || formData.phone,
-        description: formData.description,
-        measurements: formData.measurements,
-        budgetRange: formData.budget,
-        deadline: formData.deadline || null,
-        referenceImages: null, // Can be added later if needed
-      };
-
-      const response = await fetch(`${API_URL}/bespoke`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to submit request');
-      }
-
-      await response.json();
-      setIsSubmitted(true);
-      toast.success("Bespoke request submitted successfully!");
-    } catch (error) {
-      console.error('Error submitting bespoke request:', error);
-      toast.error(error instanceof Error ? error.message : "Failed to submit request. Please try again.");
-    }
+    // For now, just show success (backend integration needed)
+    setIsSubmitted(true);
+    toast.success("Bespoke request submitted successfully!");
   };
 
   const whatsappNumber = "08122815425";

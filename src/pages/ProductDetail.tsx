@@ -1,127 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Minus, Plus, MessageCircle, Heart, Share2 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CartSidebar from "@/components/cart/CartSidebar";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
+import { getProductById, getFeaturedProducts } from "@/data/products";
 import { useCart } from "@/hooks/useCart";
 import ProductCard from "@/components/products/ProductCard";
-import { productApi } from "@/lib/api/products";
 import { toast } from "sonner";
-
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  comparePrice?: number;
-  images: string[];
-  sizes: string[];
-  colors?: string[];
-  fabric?: string;
-  care?: string;
-  stock: number;
-  category?: { id: string; name: string };
-}
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<Product | null>(null);
-  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const product = getProductById(id || "");
   const { addToCart } = useCart();
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        setIsLoading(true);
-        if (!id) throw new Error('No product ID provided');
-        const data = await productApi.getById(id);
-        
-        // Parse images if it's a JSON string
-        if (typeof data.images === 'string') {
-          data.images = JSON.parse(data.images);
-        }
-        
-        // Parse sizes if it's a JSON string
-        if (typeof data.sizes === 'string') {
-          data.sizes = JSON.parse(data.sizes);
-        }
-        if (!Array.isArray(data.sizes)) {
-          data.sizes = [];
-        }
-        
-        // Parse colors if it's a JSON string
-        if (typeof data.colors === 'string') {
-          data.colors = JSON.parse(data.colors);
-        }
-        
-        setProduct(data);
-        
-        // Fetch all products to find related ones
-        const allProducts = await productApi.getAll();
-        const related = allProducts
-          .filter((p: Product) => p.id !== id && p.category?.id === data.category?.id)
-          .slice(0, 4);
-        setRelatedProducts(related);
-
-        // Update page title and meta tags for SEO
-        document.title = `${data.name} - Fifi Fashion Wears LE LUXE`;
-        const metaDescription = document.querySelector('meta[name="description"]');
-        if (metaDescription) {
-          metaDescription.setAttribute(
-            'content',
-            `${data.name} - ${data.description?.substring(0, 120)}... | Premium fashion by Fifi Fashion Wears`
-          );
-        }
-
-        // Add structured data (JSON-LD)
-        const structuredData = {
-          "@context": "https://schema.org/",
-          "@type": "Product",
-          "name": data.name,
-          "description": data.description,
-          "image": data.images?.[0] || '',
-          "brand": {
-            "@type": "Brand",
-            "name": "Fifi Fashion Wears"
-          },
-          "offers": {
-            "@type": "Offer",
-            "url": window.location.href,
-            "priceCurrency": "NGN",
-            "price": data.price,
-            "availability": data.stock > 0 ? "InStock" : "OutOfStock",
-            "seller": {
-              "@type": "Organization",
-              "name": "Fifi Fashion Wears"
-            }
-          }
-        };
-        
-        const script = document.createElement('script');
-        script.type = 'application/ld+json';
-        script.textContent = JSON.stringify(structuredData);
-        document.head.appendChild(script);
-        
-        return () => {
-          document.head.removeChild(script);
-        };
-      } catch (err) {
-        console.error('Error fetching product:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load product');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProduct();
-  }, [id]);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-NG", {
@@ -131,32 +25,7 @@ const ProductDetail = () => {
     }).format(price);
   };
 
-  // Loading state
-  if (isLoading) {
-    return (
-      <div className="min-h-screen">
-        <Header />
-        <CartSidebar />
-        <main className="pt-24 md:pt-28">
-          <div className="luxury-container py-8">
-            <div className="grid md:grid-cols-2 gap-8">
-              <Skeleton className="h-96 rounded-lg" />
-              <div className="space-y-4">
-                <Skeleton className="h-8 w-3/4" />
-                <Skeleton className="h-6 w-1/2" />
-                <Skeleton className="h-20 w-full" />
-                <Skeleton className="h-10 w-full" />
-              </div>
-            </div>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
-  // Error or product not found
-  if (error || !product) {
+  if (!product) {
     return (
       <div className="min-h-screen">
         <Header />
@@ -165,7 +34,7 @@ const ProductDetail = () => {
           <div className="luxury-container text-center">
             <h1 className="font-serif text-3xl mb-4">Product Not Found</h1>
             <p className="text-muted-foreground mb-8">
-              {error || "The product you're looking for doesn't exist."}
+              The product you're looking for doesn't exist.
             </p>
             <Button variant="luxury" asChild>
               <Link to="/shop">Back to Shop</Link>
@@ -193,10 +62,14 @@ const ProductDetail = () => {
       price: product.price,
       size: selectedSize,
       quantity,
-      image: product.images && product.images.length > 0 ? product.images[0] : '',
+      image: product.images[0],
     });
     toast.success("Added to cart");
   };
+
+  const relatedProducts = getFeaturedProducts()
+    .filter((p) => p.id !== product.id)
+    .slice(0, 4);
 
   return (
     <div className="min-h-screen">
@@ -219,23 +92,17 @@ const ProductDetail = () => {
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Image */}
             <div className="aspect-[3/4] bg-muted rounded-lg overflow-hidden">
-              {product.images && product.images.length > 0 ? (
-                <img
-                  src={product.images[0]}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                  No image available
-                </div>
-              )}
+              <img
+                src={product.images[0]}
+                alt={product.name}
+                className="w-full h-full object-cover"
+              />
             </div>
 
             {/* Info */}
             <div className="flex flex-col">
               <p className="text-sm tracking-widest uppercase text-gold mb-2">
-                {product.category?.name || 'Uncategorized'}
+                {product.category}
               </p>
               <h1 className="font-serif text-3xl md:text-4xl mb-4">
                 {product.name}

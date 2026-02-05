@@ -97,13 +97,13 @@ const Bespoke = () => {
         </section>
 
         {/* Form */}
-        <section className="py-16 md:py-20">
+        <section className="py-12 md:py-20">
           <div className="luxury-container">
             <div className="max-w-2xl mx-auto">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   <div>
-                    <label htmlFor="fullName" className="block text-sm font-medium mb-2">
+                    <label htmlFor="fullName" className="block text-xs md:text-sm font-medium mb-2">
                       Full Name *
                     </label>
                     <Input
@@ -113,11 +113,11 @@ const Bespoke = () => {
                       onChange={handleInputChange}
                       required
                       placeholder="Your full name"
-                      className="h-12"
+                      className="h-10 md:h-12 text-sm"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2">
+                    <label htmlFor="email" className="block text-xs md:text-sm font-medium mb-2">
                       Email Address *
                     </label>
                     <Input
@@ -128,14 +128,14 @@ const Bespoke = () => {
                       onChange={handleInputChange}
                       required
                       placeholder="your@email.com"
-                      className="h-12"
+                      className="h-10 md:h-12 text-sm"
                     />
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium mb-2">
+                    <label htmlFor="phone" className="block text-xs md:text-sm font-medium mb-2">
                       Phone Number *
                     </label>
                     <Input
@@ -145,11 +145,11 @@ const Bespoke = () => {
                       onChange={handleInputChange}
                       required
                       placeholder="080XXXXXXXX"
-                      className="h-12"
+                      className="h-10 md:h-12 text-sm"
                     />
                   </div>
                   <div>
-                    <label htmlFor="whatsapp" className="block text-sm font-medium mb-2">
+                    <label htmlFor="whatsapp" className="block text-xs md:text-sm font-medium mb-2">
                       WhatsApp Number
                     </label>
                     <Input
@@ -158,13 +158,13 @@ const Bespoke = () => {
                       value={formData.whatsapp}
                       onChange={handleInputChange}
                       placeholder="Same as phone if applicable"
-                      className="h-12"
+                      className="h-10 md:h-12 text-sm"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="description" className="block text-sm font-medium mb-2">
+                  <label htmlFor="description" className="block text-xs md:text-sm font-medium mb-2">
                     Describe Your Dream Outfit *
                   </label>
                   <Textarea
@@ -174,12 +174,13 @@ const Bespoke = () => {
                     onChange={handleInputChange}
                     required
                     placeholder="Tell us about the style, color, occasion, and any specific details you have in mind..."
-                    rows={5}
+                    rows={4}
+                    className="text-sm"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="measurements" className="block text-sm font-medium mb-2">
+                  <label htmlFor="measurements" className="block text-xs md:text-sm font-medium mb-2">
                     Your Measurements (if available)
                   </label>
                   <Textarea
@@ -189,12 +190,13 @@ const Bespoke = () => {
                     onChange={handleInputChange}
                     placeholder="Bust, waist, hips, length, etc. Don't worry if you don't have them – we'll help you!"
                     rows={3}
+                    className="text-sm"
                   />
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   <div>
-                    <label htmlFor="budget" className="block text-sm font-medium mb-2">
+                    <label htmlFor="budget" className="block text-xs md:text-sm font-medium mb-2">
                       Budget Range
                     </label>
                     <select

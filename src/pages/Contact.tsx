@@ -27,67 +27,67 @@ const Contact = () => {
         </section>
 
         {/* Contact Content */}
-        <section className="py-16 md:py-20">
+        <section className="py-12 md:py-20">
           <div className="luxury-container">
-            <div className="grid lg:grid-cols-2 gap-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
               {/* Contact Info */}
               <div>
-                <h2 className="font-serif text-3xl mb-8">Reach Out</h2>
+                <h2 className="font-serif text-2xl md:text-3xl mb-6 md:mb-8">Reach Out</h2>
                 
-                <div className="space-y-6">
+                <div className="space-y-3 md:space-y-6">
                   <a
                     href={`https://wa.me/${whatsappNumber}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-start gap-4 p-4 rounded-lg border border-border hover:border-gold transition-colors group"
+                    className="flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-lg border border-border hover:border-gold transition-colors group"
                   >
-                    <div className="w-12 h-12 rounded-full bg-[#25D366]/10 flex items-center justify-center flex-shrink-0">
-                      <MessageCircle className="w-5 h-5 text-[#25D366]" />
+                    <div className="w-10 md:w-12 h-10 md:h-12 rounded-full bg-[#25D366]/10 flex items-center justify-center flex-shrink-0">
+                      <MessageCircle className="w-4 md:w-5 h-4 md:h-5 text-[#25D366]" />
                     </div>
-                    <div>
-                      <h3 className="font-medium mb-1 group-hover:text-gold transition-colors">
+                    <div className="min-w-0">
+                      <h3 className="font-medium text-sm md:text-base mb-1 group-hover:text-gold transition-colors">
                         WhatsApp
                       </h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-xs md:text-sm text-muted-foreground">
                         Quick responses, usually within minutes
                       </p>
-                      <p className="text-sm font-medium mt-1">0812 281 5425</p>
+                      <p className="text-xs md:text-sm font-medium mt-1">0812 281 5425</p>
                     </div>
                   </a>
 
                   <a
                     href="tel:+2348122815425"
-                    className="flex items-start gap-4 p-4 rounded-lg border border-border hover:border-gold transition-colors group"
+                    className="flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-lg border border-border hover:border-gold transition-colors group"
                   >
-                    <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-5 h-5 text-gold" />
+                    <div className="w-10 md:w-12 h-10 md:h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
+                      <Phone className="w-4 md:w-5 h-4 md:h-5 text-gold" />
                     </div>
                     <div>
-                      <h3 className="font-medium mb-1 group-hover:text-gold transition-colors">
+                      <h3 className="font-medium text-sm md:text-base mb-1 group-hover:text-gold transition-colors">
                         Phone
                       </h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-xs md:text-sm text-muted-foreground">
                         Call us during business hours
                       </p>
-                      <p className="text-sm font-medium mt-1">0812 281 5425</p>
+                      <p className="text-xs md:text-sm font-medium mt-1">0812 281 5425</p>
                     </div>
                   </a>
 
                   <a
                     href="mailto:fififashionwears@gmail.com"
-                    className="flex items-start gap-4 p-4 rounded-lg border border-border hover:border-gold transition-colors group"
+                    className="flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-lg border border-border hover:border-gold transition-colors group"
                   >
-                    <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-5 h-5 text-gold" />
+                    <div className="w-10 md:w-12 h-10 md:h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-4 md:w-5 h-4 md:h-5 text-gold" />
                     </div>
                     <div>
-                      <h3 className="font-medium mb-1 group-hover:text-gold transition-colors">
+                      <h3 className="font-medium text-sm md:text-base mb-1 group-hover:text-gold transition-colors">
                         Email
                       </h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-xs md:text-sm text-muted-foreground">
                         For detailed inquiries
                       </p>
-                      <p className="text-sm font-medium mt-1">fififashionwears@gmail.com</p>
+                      <p className="text-xs md:text-sm font-medium mt-1">fififashionwears@gmail.com</p>
                     </div>
                   </a>
 
@@ -95,19 +95,19 @@ const Contact = () => {
                     href="https://www.instagram.com/fifi_fashion_wears1"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-start gap-4 p-4 rounded-lg border border-border hover:border-gold transition-colors group"
+                    className="flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-lg border border-border hover:border-gold transition-colors group"
                   >
-                    <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
-                      <Instagram className="w-5 h-5 text-gold" />
+                    <div className="w-10 md:w-12 h-10 md:h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
+                      <Instagram className="w-4 md:w-5 h-4 md:h-5 text-gold" />
                     </div>
                     <div>
-                      <h3 className="font-medium mb-1 group-hover:text-gold transition-colors">
+                      <h3 className="font-medium text-sm md:text-base mb-1 group-hover:text-gold transition-colors">
                         Instagram
                       </h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-xs md:text-sm text-muted-foreground">
                         Follow us for latest designs
                       </p>
-                      <p className="text-sm font-medium mt-1">@fifi_fashion_wears1</p>
+                      <p className="text-xs md:text-sm font-medium mt-1">@fifi_fashion_wears1</p>
                     </div>
                   </a>
                 </div>
@@ -115,52 +115,53 @@ const Contact = () => {
 
               {/* Contact Form */}
               <div>
-                <h2 className="font-serif text-3xl mb-8">Send a Message</h2>
-                <form className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
+                <h2 className="font-serif text-2xl md:text-3xl mb-6 md:mb-8">Send a Message</h2>
+                <form className="space-y-4 md:space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium mb-2">
+                      <label htmlFor="name" className="block text-xs md:text-sm font-medium mb-2">
                         Name
                       </label>
                       <Input
                         id="name"
                         placeholder="Your name"
-                        className="h-12"
+                        className="h-10 md:h-12 text-sm"
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium mb-2">
+                      <label htmlFor="email" className="block text-xs md:text-sm font-medium mb-2">
                         Email
                       </label>
                       <Input
                         id="email"
                         type="email"
                         placeholder="your@email.com"
-                        className="h-12"
+                        className="h-10 md:h-12 text-sm"
                       />
                     </div>
                   </div>
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium mb-2">
+                    <label htmlFor="subject" className="block text-xs md:text-sm font-medium mb-2">
                       Subject
                     </label>
                     <Input
                       id="subject"
                       placeholder="How can we help?"
-                      className="h-12"
+                      className="h-10 md:h-12 text-sm"
                     />
                   </div>
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-2">
+                    <label htmlFor="message" className="block text-xs md:text-sm font-medium mb-2">
                       Message
                     </label>
                     <Textarea
                       id="message"
                       placeholder="Tell us more..."
-                      rows={5}
+                      rows={4}
+                      className="text-sm"
                     />
                   </div>
-                  <Button type="submit" variant="luxury" size="xl" className="w-full">
+                  <Button type="submit" variant="luxury" size="lg" className="w-full">
                     Send Message
                   </Button>
                 </form>

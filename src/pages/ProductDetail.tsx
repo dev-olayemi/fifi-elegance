@@ -88,10 +88,10 @@ const ProductDetail = () => {
         </div>
 
         {/* Product Detail */}
-        <div className="luxury-container pb-20">
-          <div className="grid lg:grid-cols-2 gap-12">
+        <div className="luxury-container pb-12 md:pb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
             {/* Image */}
-            <div className="aspect-[3/4] bg-muted rounded-lg overflow-hidden">
+            <div className="aspect-[3/4] bg-muted rounded-lg overflow-hidden sticky top-24 md:static">
               <img
                 src={product.images[0]}
                 alt={product.name}
@@ -101,36 +101,36 @@ const ProductDetail = () => {
 
             {/* Info */}
             <div className="flex flex-col">
-              <p className="text-sm tracking-widest uppercase text-gold mb-2">
+              <p className="text-xs md:text-sm tracking-widest uppercase text-gold mb-2">
                 {product.category}
               </p>
-              <h1 className="font-serif text-3xl md:text-4xl mb-4">
+              <h1 className="font-serif text-2xl md:text-3xl lg:text-4xl mb-3 md:mb-4">
                 {product.name}
               </h1>
-              <p className="font-serif text-2xl text-foreground mb-6">
+              <p className="font-serif text-xl md:text-2xl text-foreground mb-4 md:mb-6">
                 {formatPrice(product.price)}
               </p>
-              <p className="text-muted-foreground leading-relaxed mb-8">
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6 md:mb-8">
                 {product.description}
               </p>
 
               {/* Fabric */}
-              <div className="mb-6">
-                <h3 className="text-sm font-medium mb-2">Fabric</h3>
-                <p className="text-muted-foreground">{product.fabric}</p>
+              <div className="mb-5 md:mb-6">
+                <h3 className="text-xs md:text-sm font-medium mb-2">Fabric</h3>
+                <p className="text-xs md:text-sm text-muted-foreground">{product.fabric}</p>
               </div>
 
               {/* Size Selection */}
-              <div className="mb-6">
-                <h3 className="text-sm font-medium mb-3">Select Size</h3>
-                <div className="flex flex-wrap gap-3">
+              <div className="mb-5 md:mb-6">
+                <h3 className="text-xs md:text-sm font-medium mb-3">Select Size</h3>
+                <div className="flex flex-wrap gap-2 md:gap-3">
                   {product.sizes.map((size) => (
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`w-12 h-12 rounded-lg border transition-all ${
+                      className={`w-10 h-10 md:w-12 md:h-12 rounded-lg border text-sm md:text-base transition-all ${
                         selectedSize === size
-                          ? "border-gold bg-gold/10 text-foreground"
+                          ? "border-gold bg-gold/10 text-foreground font-medium"
                           : "border-border hover:border-gold"
                       }`}
                     >
@@ -141,20 +141,20 @@ const ProductDetail = () => {
               </div>
 
               {/* Quantity */}
-              <div className="mb-8">
-                <h3 className="text-sm font-medium mb-3">Quantity</h3>
+              <div className="mb-6 md:mb-8">
+                <h3 className="text-xs md:text-sm font-medium mb-3">Quantity</h3>
                 <div className="flex items-center border border-border rounded-lg w-fit">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="p-3 hover:bg-muted transition-colors"
+                    className="p-2 md:p-3 hover:bg-muted transition-colors"
                     aria-label="Decrease quantity"
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="px-6 font-medium">{quantity}</span>
+                  <span className="px-4 md:px-6 font-medium text-sm md:text-base">{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="p-3 hover:bg-muted transition-colors"
+                    className="p-2 md:p-3 hover:bg-muted transition-colors"
                     aria-label="Increase quantity"
                   >
                     <Plus className="w-4 h-4" />
@@ -163,10 +163,10 @@ const ProductDetail = () => {
               </div>
 
               {/* Actions */}
-              <div className="space-y-3">
+              <div className="space-y-2 md:space-y-3">
                 <Button
                   variant="luxury"
-                  size="xl"
+                  size="lg"
                   className="w-full"
                   onClick={handleAddToCart}
                 >
@@ -174,7 +174,7 @@ const ProductDetail = () => {
                 </Button>
                 <Button
                   variant="whatsapp"
-                  size="xl"
+                  size="lg"
                   className="w-full"
                   asChild
                 >
@@ -183,21 +183,21 @@ const ProductDetail = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <MessageCircle className="w-5 h-5" />
-                    Contact Seller on WhatsApp
+                    <MessageCircle className="w-4 h-4 md:w-5 md:h-5" />
+                    <span className="hidden sm:inline">Contact Seller on</span> WhatsApp
                   </a>
                 </Button>
               </div>
 
               {/* Secondary Actions */}
-              <div className="flex gap-4 mt-6 pt-6 border-t border-border">
-                <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <div className="flex gap-3 md:gap-4 mt-4 md:mt-6 pt-4 md:pt-6 border-t border-border">
+                <button className="flex items-center gap-1 md:gap-2 text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors">
                   <Heart className="w-4 h-4" />
-                  Add to Wishlist
+                  <span className="hidden sm:inline">Add to Wishlist</span>
                 </button>
-                <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <button className="flex items-center gap-1 md:gap-2 text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors">
                   <Share2 className="w-4 h-4" />
-                  Share
+                  <span className="hidden sm:inline">Share</span>
                 </button>
               </div>
             </div>

@@ -5,6 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/hooks/useCart";
 import { AuthProvider } from "@/hooks/useAuth";
+import ScrollToTop from "@/components/ScrollToTop";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
+import WhatsAppWidget from "@/components/WhatsAppWidget";
 import Index from "./pages/Index";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
@@ -38,6 +41,9 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <ScrollToTop />
+            <ScrollToTopButton />
+            <WhatsAppWidget />
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Index />} />

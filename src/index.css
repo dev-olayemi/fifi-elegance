@@ -116,6 +116,11 @@
     font-family: var(--font-sans);
   }
 
+  /* Prevent horizontal scroll across the site */
+  html, body, #root {
+    overflow-x: hidden;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-serif);
     @apply tracking-tight;

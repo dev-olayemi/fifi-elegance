@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from "react";
 import cloudinaryMap from "@/data/cloudinaryMap.json";
 import { ChevronLeft, ChevronRight, X, Play } from "lucide-react";

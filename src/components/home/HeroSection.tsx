@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import cloudinaryMap from "@/data/cloudinaryMap.json";
 
 const HeroSection = () => {
   return (
@@ -8,19 +9,19 @@ const HeroSection = () => {
       {/* Background Video */}
       <div className="absolute inset-0">
         <video
-          // Use client-provided branding video for hero
-          src="/branding.mp4"
+          // Use client-provided branding video for hero (prefer Cloudinary URL)
+          src={cloudinaryMap['branding.mp4'] || '/branding.mp4'}
           autoPlay
           muted
           loop
           playsInline
           preload="metadata"
-          poster="/img7 (3).jpeg"
+          poster={cloudinaryMap['fifi-gallery-3.jpg'] || '/fifi-gallery-3.jpg'}
           className="w-full h-full object-cover object-center"
           aria-label="Hero background video"
         >
           {/* Fallback source for older browsers */}
-          <source src="/branding.mp4" type="video/mp4" />
+          <source src={cloudinaryMap['branding.mp4'] || '/branding.mp4'} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-r from-navy/80 via-navy/50 to-transparent" />
       </div>

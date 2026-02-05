@@ -1,4 +1,5 @@
 import { useState } from "react";
+import cloudinaryMap from "@/data/cloudinaryMap.json";
 import { ChevronLeft, ChevronRight, X, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -13,22 +14,33 @@ const GallerySection = () => {
     { type: "image", src: "/img4.jpg", alt: "Gallery Image 4" },
     { type: "image", src: "/img5.jpg", alt: "Gallery Image 5" },
     { type: "image", src: "/img6.jpg", alt: "Gallery Image 6" },
-    // Additional gallery images (img7 series)
-    { type: "image", src: "/img7 (1).jpeg", alt: "Fifi Fashion Gallery 1" },
-    { type: "image", src: "/img7 (2).jpeg", alt: "Fifi Fashion Gallery 2" },
-    { type: "image", src: "/img7 (3).jpeg", alt: "Fifi Fashion Gallery 3" },
-    { type: "image", src: "/img7 (4).jpeg", alt: "Fifi Fashion Gallery 4" },
-    { type: "image", src: "/img7 (5).jpeg", alt: "Fifi Fashion Gallery 5" },
-    { type: "image", src: "/img7 (6).jpeg", alt: "Fifi Fashion Gallery 6" },
-    { type: "image", src: "/img7 (7).jpeg", alt: "Fifi Fashion Gallery 7" },
-    { type: "image", src: "/img7 (8).jpeg", alt: "Fifi Fashion Gallery 8" },
-    { type: "image", src: "/img7 (9).jpeg", alt: "Fifi Fashion Gallery 9" },
-    { type: "image", src: "/img7 (10).jpeg", alt: "Fifi Fashion Gallery 10" },
-    { type: "image", src: "/img7 (11).jpeg", alt: "Fifi Fashion Gallery 11" },
-    { type: "image", src: "/img7 (12).jpeg", alt: "Fifi Fashion Gallery 12" },
+    // Additional gallery images (img7 series renamed)
+    { type: "image", src: "/fifi-gallery-1.jpg", alt: "Fifi Fashion Gallery 1" },
+    { type: "image", src: "/fifi-gallery-2.jpg", alt: "Fifi Fashion Gallery 2" },
+    { type: "image", src: "/fifi-gallery-3.jpg", alt: "Fifi Fashion Gallery 3" },
+    { type: "image", src: "/fifi-gallery-4.jpg", alt: "Fifi Fashion Gallery 4" },
+    { type: "image", src: "/fifi-gallery-5.jpg", alt: "Fifi Fashion Gallery 5" },
+    { type: "image", src: "/fifi-gallery-6.jpg", alt: "Fifi Fashion Gallery 6" },
+    { type: "image", src: "/fifi-gallery-7.jpg", alt: "Fifi Fashion Gallery 7" },
+    { type: "image", src: "/fifi-gallery-8.jpg", alt: "Fifi Fashion Gallery 8" },
+    { type: "image", src: "/fifi-gallery-9.jpg", alt: "Fifi Fashion Gallery 9" },
+    { type: "image", src: "/fifi-gallery-10.jpg", alt: "Fifi Fashion Gallery 10" },
+    { type: "image", src: "/fifi-gallery-11.jpg", alt: "Fifi Fashion Gallery 11" },
+    { type: "image", src: "/fifi-gallery-12.jpg", alt: "Fifi Fashion Gallery 12" },
     { type: "video", src: "/vid1.mp4", alt: "Gallery Video 1" },
     { type: "video", src: "/fifi.mp4", alt: "Gallery Video - Fifi" },
   ];
+
+  const getSrc = (src: string) => {
+    try {
+      const key = src.replace(/^\//, '');
+      // @ts-ignore
+      if (cloudinaryMap && cloudinaryMap[key]) return cloudinaryMap[key];
+    } catch (e) {
+      // ignore
+    }
+    return src;
+  };
 
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev === 0 ? items.length - 1 : prev - 1));
@@ -68,15 +80,15 @@ const GallerySection = () => {
               className="relative group cursor-pointer aspect-square overflow-hidden rounded-lg bg-muted"
             >
               {item.type === "image" ? (
-                <img
-                  src={item.src}
-                  alt={item.alt}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              ) : (
+                    <img
+                      src={getSrc(item.src)}
+                      alt={item.alt}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  ) : (
                 <>
                   <video
-                    src={item.src}
+                    src={getSrc(item.src)}
                     preload="metadata"
                     className="w-full h-full object-cover"
                   />
@@ -119,13 +131,13 @@ const GallerySection = () => {
           >
             {items[currentIndex].type === "image" ? (
               <img
-                src={items[currentIndex].src}
+                src={getSrc(items[currentIndex].src)}
                 alt={items[currentIndex].alt}
                 className="w-full h-full object-contain"
               />
             ) : (
               <video
-                src={items[currentIndex].src}
+                src={getSrc(items[currentIndex].src)}
                 controls
                 autoPlay
                 muted

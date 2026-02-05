@@ -4,7 +4,7 @@
  */
 
 export interface ActivityLog {
-  timestamp: string;
+  timestamp?: string;
   action: string;
   itemName?: string;
   itemId?: string;
@@ -229,6 +229,12 @@ class ActivityLogger {
    * Download logs as CSV file
    */
   downloadCSV(filename: string = "fifi-activity-logs.csv") {
+    // Check if we're in a browser environment
+    if (typeof document === "undefined" || typeof window === "undefined") {
+      console.error("CSV download is only available in browser environment");
+      return;
+    }
+
     const csv = this.exportAsCSV();
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
@@ -241,6 +247,9 @@ class ActivityLogger {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    
+    // Clean up the URL object
+    URL.revokeObjectURL(url);
   }
 
   /**
@@ -266,10 +275,19 @@ class ActivityLogger {
     let total = 0;
     const checkoutLogs = this.getLogsByAction("CHECKOUT");
     checkoutLogs.forEach((log) => {
-      // Extract amount from details string if available
-      const match = log.details?.match(/Total: ([\d,]+)/);
-      if (match) {
-        total += parseInt(match[1].replace(/,/g, ""));
+      try {
+        // Extract amount from details string
+        // Handles formats like "Total: 50000", "Total: 50,000", etc.
+        const match = log.details?.match(/Total:\s*([\d,]+(?:\.\d{2})?)/);
+        if (match && match[1]) {
+          // Remove commas and convert to number
+          const amount = parseInt(match[1].replace(/,/g, ""), 10);
+          if (!isNaN(amount)) {
+            total += amount;
+          }
+        }
+      } catch (error) {
+        console.error("Error parsing revenue from log:", error);
       }
     });
     return total;
@@ -288,9 +306,15 @@ class ActivityLogger {
    */
   private saveToStorage() {
     try {
+      // Check if localStorage is available
+      if (typeof localStorage === "undefined") {
+        console.warn("localStorage is not available");
+        return;
+      }
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.logs));
     } catch (error) {
       console.error("Failed to save logs to storage:", error);
+      // Silently fail - don't crash the app if storage is unavailable
     }
   }
 
@@ -299,6 +323,12 @@ class ActivityLogger {
    */
   private loadFromStorage() {
     try {
+      // Check if localStorage is available
+      if (typeof localStorage === "undefined") {
+        console.warn("localStorage is not available");
+        this.logs = [];
+        return;
+      }
       const stored = localStorage.getItem(this.STORAGE_KEY);
       if (stored) {
         this.logs = JSON.parse(stored);

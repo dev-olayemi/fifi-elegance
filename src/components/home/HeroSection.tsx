@@ -10,7 +10,7 @@ const HeroSection = () => {
       <div className="absolute inset-0">
         <img
           src={heroImage}
-          alt="LE LUXE Collection"
+          alt="Fifi Fashion Wears - LE LUXE Collection"
           className="w-full h-full object-cover object-top"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-navy/80 via-navy/50 to-transparent" />
@@ -20,11 +20,14 @@ const HeroSection = () => {
       <div className="relative z-10 luxury-container py-32">
         <div className="max-w-xl">
           <p className="luxury-subheading text-gold mb-4 animate-fade-up">
-            Introducing
+            Fifi Fashion Wears
           </p>
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-cream font-medium mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-cream font-medium mb-4 animate-fade-up" style={{ animationDelay: "0.1s" }}>
             LE LUXE
           </h1>
+          <p className="text-sm md:text-base text-gold mb-4 animate-fade-up tracking-widest uppercase" style={{ animationDelay: "0.15s" }}>
+            Ready-to-Wear Collection
+          </p>
           <p className="text-lg md:text-xl text-cream/90 mb-8 leading-relaxed animate-fade-up" style={{ animationDelay: "0.2s" }}>
             Discover our premium ready-to-wear collection. Elegant designs crafted with precision, 
             celebrating confidence and individuality.

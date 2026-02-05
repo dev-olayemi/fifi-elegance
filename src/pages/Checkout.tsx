@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useCart } from "@/hooks/useCart";
+import { activityLogger } from "@/utils/activityLogger";
 import { ArrowLeft, Copy, MessageCircle, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 
@@ -55,6 +56,13 @@ const Checkout = () => {
 
   const handlePaymentConfirmed = () => {
     setStep("confirmation");
+    // Log the checkout action
+    activityLogger.logCheckout(
+      orderRef,
+      getCartTotal(),
+      cartItems.length,
+      formData.fullName
+    );
     clearCart();
     toast.success("Payment confirmation received!");
   };

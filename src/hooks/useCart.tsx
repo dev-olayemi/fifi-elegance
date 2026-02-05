@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
+import { activityLogger } from "@/utils/activityLogger";
 
 export interface CartItem {
   id: string;
@@ -31,22 +32,55 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       const existingItem = prev.find(
         (i) => i.id === item.id && i.size === item.size
       );
+      let newCart;
       if (existingItem) {
-        return prev.map((i) =>
+        newCart = prev.map((i) =>
           i.id === item.id && i.size === item.size
             ? { ...i, quantity: i.quantity + item.quantity }
             : i
         );
+      } else {
+        newCart = [...prev, item];
       }
-      return [...prev, item];
+      
+      // Calculate new total
+      const newTotal = newCart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+      
+      // Log the action
+      activityLogger.logAddToCart(
+        item.id,
+        item.name,
+        item.price,
+        item.size,
+        item.quantity,
+        newTotal
+      );
+      
+      return newCart;
     });
     setIsCartOpen(true);
   };
 
   const removeFromCart = (id: string, size: string) => {
-    setCartItems((prev) =>
-      prev.filter((item) => !(item.id === id && item.size === size))
-    );
+    setCartItems((prev) => {
+      const itemToRemove = prev.find((item) => item.id === id && item.size === size);
+      const newCart = prev.filter((item) => !(item.id === id && item.size === size));
+      
+      if (itemToRemove) {
+        const newTotal = newCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        // Log the action
+        activityLogger.logRemoveFromCart(
+          id,
+          itemToRemove.name,
+          itemToRemove.price,
+          size,
+          itemToRemove.quantity,
+          newTotal
+        );
+      }
+      
+      return newCart;
+    });
   };
 
   const updateQuantity = (id: string, size: string, quantity: number) => {

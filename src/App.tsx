@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/hooks/useCart";
+import { WishlistProvider } from "@/hooks/useWishlist";
 import { AuthProvider } from "@/hooks/useAuth";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
@@ -30,6 +31,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminBespoke from "./pages/admin/AdminBespoke";
+import ActivityLogs from "./pages/ActivityLogs";
 
 const queryClient = new QueryClient();
 
@@ -37,13 +39,14 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <CartProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <ScrollToTop />
-            <ScrollToTopButton />
-            <WhatsAppWidget />
+        <WishlistProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <ScrollToTop />
+              <ScrollToTopButton />
+              <WhatsAppWidget />
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Index />} />
@@ -60,6 +63,7 @@ const App = () => (
               <Route path="/returns" element={<Returns />} />
               <Route path="/size-guide" element={<SizeGuide />} />
               <Route path="/order-tracking" element={<OrderTracking />} />
+              <Route path="/activity-logs" element={<ActivityLogs />} />
               
               {/* Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />
@@ -72,6 +76,7 @@ const App = () => (
             </Routes>
           </BrowserRouter>
         </TooltipProvider>
+        </WishlistProvider>
       </CartProvider>
     </AuthProvider>
   </QueryClientProvider>

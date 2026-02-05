@@ -7,6 +7,8 @@ import CartSidebar from "@/components/cart/CartSidebar";
 import { Button } from "@/components/ui/button";
 import { getProductById, getFeaturedProducts } from "@/data/products";
 import { useCart } from "@/hooks/useCart";
+import { useWishlist } from "@/hooks/useWishlist";
+import { activityLogger } from "@/utils/activityLogger";
 import ProductCard from "@/components/products/ProductCard";
 import { toast } from "sonner";
 
@@ -14,6 +16,7 @@ const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const product = getProductById(id || "");
   const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
 
@@ -191,9 +194,35 @@ const ProductDetail = () => {
 
               {/* Secondary Actions */}
               <div className="flex gap-3 md:gap-4 mt-4 md:mt-6 pt-4 md:pt-6 border-t border-border">
-                <button className="flex items-center gap-1 md:gap-2 text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  <Heart className="w-4 h-4" />
-                  <span className="hidden sm:inline">Add to Wishlist</span>
+                <button
+                  onClick={() => {
+                    const inWishlist = isInWishlist(product.id);
+                    if (inWishlist) {
+                      removeFromWishlist(product.id);
+                      activityLogger.logRemoveFromWishlist(product.id, product.name, product.price);
+                      toast.success("Removed from wishlist");
+                    } else {
+                      addToWishlist({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        image: product.images[0],
+                        category: product.category,
+                      });
+                      activityLogger.logAddToWishlist(product.id, product.name, product.price);
+                      toast.success("Added to wishlist");
+                    }
+                  }}
+                  className={`flex items-center gap-1 md:gap-2 text-xs md:text-sm transition-colors ${
+                    isInWishlist(product.id)
+                      ? "text-red-500 hover:text-red-600"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Heart className={`w-4 h-4 ${isInWishlist(product.id) ? "fill-current" : ""}`} />
+                  <span className="hidden sm:inline">
+                    {isInWishlist(product.id) ? "Remove from Wishlist" : "Add to Wishlist"}
+                  </span>
                 </button>
                 <button className="flex items-center gap-1 md:gap-2 text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors">
                   <Share2 className="w-4 h-4" />

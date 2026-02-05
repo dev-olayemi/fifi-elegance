@@ -8,16 +8,20 @@ const HeroSection = () => {
       {/* Background Video */}
       <div className="absolute inset-0">
         <video
-          src="/vid1.mp4"
+          // Use client-provided branding video for hero
+          src="/branding.mp4"
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           poster="/img7 (3).jpeg"
           className="w-full h-full object-cover object-center"
           aria-label="Hero background video"
-        />
+        >
+          {/* Fallback source for older browsers */}
+          <source src="/branding.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-gradient-to-r from-navy/80 via-navy/50 to-transparent" />
       </div>
 

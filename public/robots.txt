@@ -1,32 +1,13 @@
-# Fifi Fashion Wears - SEO robots.txt
-# Allow all search engines to crawl the site
-
-User-agent: *
-Allow: /
-Disallow: /admin/
-Disallow: /fifi-admin/
-Disallow: /*.json$
-
-# Google
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
 
-# Bing
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 1
 
-# Meta/Facebook
-User-agent: facebookexternalhit
-Allow: /
-
-# Twitter
 User-agent: Twitterbot
 Allow: /
 
-# Sitemap
-Sitemap: https://fififashionwears.com/sitemap.xml
+User-agent: facebookexternalhit
 Allow: /
 
 User-agent: *

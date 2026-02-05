@@ -14,7 +14,7 @@ const HeroSection = () => {
           loop
           playsInline
           preload="auto"
-          poster="/img1.jpg"
+          poster="/img7 (3).jpeg"
           className="w-full h-full object-cover object-center"
           aria-label="Hero background video"
         />

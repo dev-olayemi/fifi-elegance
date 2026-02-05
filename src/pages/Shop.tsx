@@ -3,10 +3,23 @@ import Footer from "@/components/layout/Footer";
 import CartSidebar from "@/components/cart/CartSidebar";
 import ProductCard from "@/components/products/ProductCard";
 import { products } from "@/data/products";
+import SEOMetaTags from "@/components/SEO/SEOMetaTags";
+import StructuredData from "@/components/SEO/StructuredData";
 
 const Shop = () => {
   return (
     <div className="min-h-screen">
+      <SEOMetaTags
+        title="Shop Premium Fashion | Fifi Fashion Wears - LE LUXE Collection"
+        description="Browse our complete collection of premium ready-to-wear fashion. Luxury designs and elegant outfits handcrafted with attention to detail. Free shipping on orders. WhatsApp: 08122815425"
+        keywords="luxury fashion shop, designer dresses Nigeria, bespoke fashion, premium ready-to-wear, Fifi Fashion shop, LE LUXE collection"
+        url="https://fififashion.shop/shop"
+        image="https://res.cloudinary.com/your-cloud/image/upload/shop-hero.jpg"
+      />
+      <StructuredData
+        type="product-collection"
+        data={{ products: products }}
+      />
       <Header />
       <CartSidebar />
       <main className="pt-24 md:pt-28">

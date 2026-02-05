@@ -10,6 +10,8 @@ import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
 import { activityLogger } from "@/utils/activityLogger";
 import ProductCard from "@/components/products/ProductCard";
+import SEOMetaTags from "@/components/SEO/SEOMetaTags";
+import StructuredData from "@/components/SEO/StructuredData";
 import { toast } from "sonner";
 
 const ProductDetail = () => {
@@ -31,6 +33,11 @@ const ProductDetail = () => {
   if (!product) {
     return (
       <div className="min-h-screen">
+        <SEOMetaTags
+          title="Product Not Found | Fifi Fashion Wears"
+          description="The product you're looking for is not available. Browse our complete collection of premium fashion."
+          url="https://fififashion.shop/shop"
+        />
         <Header />
         <CartSidebar />
         <main className="pt-32 pb-20">
@@ -76,6 +83,30 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOMetaTags
+        title={`${product.name} | Premium Fashion by Fifi Fashion Wears`}
+        description={`${product.name} - ${product.description}. Premium quality, expertly tailored. Price: ${formatPrice(product.price)}. Order now on WhatsApp: 08122815425`}
+        keywords={`${product.name}, luxury fashion, bespoke design, ${product.category}, Fifi Fashion`}
+        url={`https://fififashion.shop/product/${product.id}`}
+        image={product.images[0]}
+      />
+      <StructuredData
+        type="product"
+        data={{
+          name: product.name,
+          description: product.description,
+          image: product.images[0],
+          price: product.price,
+          currency: "NGN",
+          url: `https://fififashion.shop/product/${product.id}`,
+          inStock: true,
+          sku: product.id,
+          rating: {
+            value: 4.8,
+            count: 125
+          }
+        }}
+      />
       <Header />
       <CartSidebar />
       <main className="pt-24 md:pt-28">

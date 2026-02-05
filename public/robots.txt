@@ -1,14 +1,45 @@
+# Fifi Fashion Wears - SEO Optimized Robots.txt
+# Last updated: 2026-02-05
+
+# Google Bot - Allow All
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 0
 
+# Bing Bot - Allow All
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
+# Twitter Bot - Allow All
 User-agent: Twitterbot
 Allow: /
 
+# Facebook External Hit - Allow All
 User-agent: facebookexternalhit
 Allow: /
 
+# LinkedIn Bot
+User-agent: LinkedInBot
+Allow: /
+
+# Default Rule for All Other Bots
 User-agent: *
 Allow: /
+Disallow: /admin-panel
+Disallow: /activity-logs
+Crawl-delay: 1
+
+# Specific Disallows for Admin/Private Areas
+Disallow: /admin-login
+Disallow: /checkout
+Disallow: *.json
+Disallow: /api/
+
+# Sitemap Location
+Sitemap: https://fififashion.shop/sitemap.xml
+
+# Allow Search Engines to Index Dynamic Content
+Allow: /?*
+Allow: /shop?*
+Allow: /product/*

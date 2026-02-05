@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.mobilexml.org/schemas/sitemap-mobile/1.0/">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://fififashion.shop/</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/your-cloud/image/upload/img1.jpg</image:loc>
+      <image:title>Fifi Fashion Wears Hero</image:title>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://fififashion.shop/vid1.mp4</video:thumbnail_loc>
+      <video:title>Fifi Fashion Wears - Hero Video</video:title>
+      <video:description>Premium Fashion Collection Showcase</video:description>
+      <video:content_loc>https://fififashion.shop/vid1.mp4</video:content_loc>
+    </video:video>
+  </url>
+
+  <!-- Shop/Products -->
+  <url>
+    <loc>https://fififashion.shop/shop</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- About -->
+  <url>
+    <loc>https://fififashion.shop/about</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Bespoke/Custom Orders -->
+  <url>
+    <loc>https://fififashion.shop/bespoke</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://fififashion.shop/contact</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- FAQ -->
+  <url>
+    <loc>https://fififashion.shop/faq</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Size Guide -->
+  <url>
+    <loc>https://fififashion.shop/size-guide</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>quarterly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Shipping Info -->
+  <url>
+    <loc>https://fififashion.shop/shipping</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Returns Policy -->
+  <url>
+    <loc>https://fififashion.shop/returns</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>quarterly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://fififashion.shop/privacy</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Terms of Service -->
+  <url>
+    <loc>https://fififashion.shop/terms</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Order Tracking -->
+  <url>
+    <loc>https://fififashion.shop/order-tracking</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Gallery Page -->
+  <url>
+    <loc>https://fififashion.shop/gallery</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/your-cloud/image/upload/gallery-img-1.jpg</image:loc>
+      <image:title>Fifi Fashion Gallery</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/your-cloud/image/upload/gallery-img-2.jpg</image:loc>
+      <image:title>Fifi Fashion Collection</image:title>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://fififashion.shop/fifi.mp4</video:thumbnail_loc>
+      <video:title>Fifi Fashion - Gallery Video</video:title>
+      <video:description>Latest Fashion Collection Showcase</video:description>
+      <video:content_loc>https://fififashion.shop/fifi.mp4</video:content_loc>
+    </video:video>
+  </url>
+
+  <!-- Sample Product Pages (Update with actual product slugs) -->
+  <url>
+    <loc>https://fififashion.shop/product/1</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

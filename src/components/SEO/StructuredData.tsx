@@ -8,7 +8,7 @@ import React, { useEffect } from 'react';
 
 interface StructuredDataProps {
   type?: 'organization' | 'product' | 'product-collection' | 'breadcrumb' | 'faq' | 'review';
-  data?: Record<string, unknown>;
+  data?: Record<string, any>;
 }
 
 const StructuredData: React.FC<StructuredDataProps> = ({ type = 'organization', data = {} }) => {
@@ -89,11 +89,11 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type = 'organization', 
           }
         },
         sku: data.sku,
-        aggregateRating: data.rating && {
+        aggregateRating: data.rating && typeof data.rating === 'object' ? {
           '@type': 'AggregateRating',
-          ratingValue: data.rating.value,
-          reviewCount: data.rating.count
-        }
+          ratingValue: (data.rating as any).value,
+          reviewCount: (data.rating as any).count
+        } : undefined
       };
 
       const script = document.createElement('script');

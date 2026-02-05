@@ -12,10 +12,10 @@ const FeaturedSection = () => {
       <div className="luxury-container">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <p className="luxury-subheading text-gold mb-3">The Collection</p>
-          <h2 className="font-serif text-4xl md:text-5xl mb-6">LE LUXE</h2>
+          <p className="luxury-subheading text-gold mb-3">Featured Collection</p>
+          <h2 className="font-serif text-4xl md:text-5xl mb-6">LE LUXE Ready-to-Wear</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Our signature ready-to-wear collection features exquisitely tailored pieces 
+            Explore our LE LUXE ready-to-wear collection - exquisitely tailored pieces 
             designed to make you feel confident and beautiful.
           </p>
         </div>

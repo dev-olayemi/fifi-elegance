@@ -13,10 +13,10 @@ const Shop = () => {
         {/* Hero Banner */}
         <section className="bg-navy text-cream py-16 md:py-24">
           <div className="luxury-container text-center">
-            <p className="luxury-subheading text-gold mb-3">The Collection</p>
-            <h1 className="font-serif text-4xl md:text-6xl mb-4">LE LUXE</h1>
+            <p className="luxury-subheading text-gold mb-3">Fifi Fashion Wears</p>
+            <h1 className="font-serif text-4xl md:text-6xl mb-4">LE LUXE Collection</h1>
             <p className="text-cream/80 max-w-2xl mx-auto">
-              Discover our premium ready-to-wear collection. Each piece is crafted 
+              Discover our LE LUXE premium ready-to-wear collection. Each piece is crafted 
               with exceptional attention to detail and the finest materials.
             </p>
           </div>

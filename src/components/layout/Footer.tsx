@@ -33,7 +33,7 @@ const Footer = () => {
             <h4 className="font-serif text-lg mb-6">Quick Links</h4>
             <ul className="space-y-3">
               {[
-                { name: "Shop LE LUXE", path: "/shop" },
+                { name: "Shop Collection", path: "/shop" },
                 { name: "Bespoke Orders", path: "/bespoke" },
                 { name: "About Us", path: "/about" },
                 { name: "Contact", path: "/contact" },

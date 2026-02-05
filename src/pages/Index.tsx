@@ -4,6 +4,7 @@ import CartSidebar from "@/components/cart/CartSidebar";
 import HeroSection from "@/components/home/HeroSection";
 import FeaturedSection from "@/components/home/FeaturedSection";
 import BespokeSection from "@/components/home/BespokeSection";
+import GallerySection from "@/components/home/GallerySection";
 import WhatsAppCTA from "@/components/home/WhatsAppCTA";
 
 const Index = () => {
@@ -15,6 +16,7 @@ const Index = () => {
         <HeroSection />
         <FeaturedSection />
         <BespokeSection />
+         <GallerySection />
         <WhatsAppCTA />
       </main>
       <Footer />

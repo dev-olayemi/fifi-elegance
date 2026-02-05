@@ -12,7 +12,7 @@ const Header = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "LE LUXE", path: "/shop" },
+    { name: "Shop", path: "/shop" },
     { name: "Bespoke", path: "/bespoke" },
     { name: "About", path: "/about" },
     { name: "Contact", path: "/contact" },

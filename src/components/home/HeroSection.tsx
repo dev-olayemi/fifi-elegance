@@ -1,17 +1,22 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import heroImage from "@/assets/hero-model.jpg";
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+      {/* Background Video */}
       <div className="absolute inset-0">
-        <img
-          src={heroImage}
-          alt="Fifi Fashion Wears - LE LUXE Collection"
-          className="w-full h-full object-cover object-top"
+        <video
+          src="/vid1.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster="/img1.jpg"
+          className="w-full h-full object-cover object-center"
+          aria-label="Hero background video"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-navy/80 via-navy/50 to-transparent" />
       </div>
@@ -19,14 +24,14 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 luxury-container py-32">
         <div className="max-w-xl">
-          <p className="luxury-subheading text-gold mb-4 animate-fade-up">
-            Fifi Fashion Wears
-          </p>
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-cream font-medium mb-4 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-            LE LUXE
+            Fifi Fashion Wears
           </h1>
           <p className="text-sm md:text-base text-gold mb-4 animate-fade-up tracking-widest uppercase" style={{ animationDelay: "0.15s" }}>
-            Ready-to-Wear Collection
+            Premium Fashion House
+          </p>
+          <p className="text-lg md:text-xl text-cream/90 mb-2 animate-fade-up font-serif text-2xl md:text-3xl" style={{ animationDelay: "0.18s" }}>
+            LE LUXE Collection
           </p>
           <p className="text-lg md:text-xl text-cream/90 mb-8 leading-relaxed animate-fade-up" style={{ animationDelay: "0.2s" }}>
             Discover our premium ready-to-wear collection. Elegant designs crafted with precision, 

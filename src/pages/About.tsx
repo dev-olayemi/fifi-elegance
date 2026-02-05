@@ -59,8 +59,8 @@ const About = () => {
                   of individuality and a celebration of personal style.
                 </p>
                 <p className="mb-6">
-                  Our LE LUXE collection represents the pinnacle of our craftsmanship, 
-                  featuring ready-to-wear pieces that combine timeless elegance with 
+                  Our LE LUXE collection represents the pinnacle of Fifi Fashion Wears craftsmanship, 
+                  featuring premium ready-to-wear pieces that combine timeless elegance with 
                   contemporary design. Each piece is meticulously crafted using premium 
                   materials and attention to detail that sets us apart.
                 </p>
@@ -97,7 +97,7 @@ const About = () => {
           <div className="luxury-container text-center">
             <h2 className="font-serif text-3xl mb-4">Ready to Experience Luxury?</h2>
             <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-              Explore our LE LUXE collection or start your bespoke journey today.
+              Explore Fifi Fashion Wears' LE LUXE collection or start your bespoke journey today.
             </p>
           </div>
         </section>

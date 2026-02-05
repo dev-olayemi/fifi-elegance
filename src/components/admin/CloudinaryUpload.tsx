@@ -9,8 +9,8 @@ interface CloudinaryUploadProps {
   maxImages?: number;
 }
 
-const CLOUDINARY_CLOUD_NAME = "dgpu70zzs";
-const CLOUDINARY_UPLOAD_PRESET = "fifi_fashion"; // Create this in Cloudinary
+const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || "dgpu70zzs";
+const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || "fifi_fashion";
 
 const CloudinaryUpload = ({ images, onImagesChange, maxImages = 5 }: CloudinaryUploadProps) => {
   const [uploading, setUploading] = useState(false);

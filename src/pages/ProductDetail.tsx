@@ -57,9 +57,7 @@ const ProductDetail = () => {
   }
 
   const whatsappNumber = "08122815425";
-  const whatsappMessage = encodeURIComponent(
-    `Hello Fifi Fashion Wears,\n\nI am interested in this product:\n\nProduct Name: ${product.name}\nPrice: ${formatPrice(product.price)}\nProduct Link: ${window.location.href}\n\nPlease assist me.`
-  );
+  const whatsappMessageDefault = `Hello Fifi Fashion Wears,\n\nI am interested in this product:\n\nProduct Name: ${product.name}\nPrice: ${formatPrice(product.price)}\nProduct Link: ${window.location.href}\n\nPlease assist me.`;
 
   const handleAddToCart = () => {
     if (!selectedSize) {
@@ -206,21 +204,18 @@ const ProductDetail = () => {
                 >
                   Add to Cart
                 </Button>
-                <Button
-                  variant="whatsapp"
-                  size="lg"
-                  className="w-full"
-                  asChild
-                >
+
+                {/* WhatsApp redirect: opens editor modal where message is editable, then redirects to WhatsApp */}
+                <WhatsAppRedirect phone={whatsappNumber} defaultMessage={whatsappMessageDefault} className="w-full">
                   <a
-                    href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 w-full px-4 py-3 rounded bg-[#25D366] text-white hover:bg-[#21b85a]"
+                    href="#"
+                    onClick={(e) => e.preventDefault()}
                   >
                     <MessageCircle className="w-4 h-4 md:w-5 md:h-5" />
                     <span className="hidden sm:inline">Contact Seller on</span> WhatsApp
                   </a>
-                </Button>
+                </WhatsAppRedirect>
               </div>
 
               {/* Secondary Actions */}

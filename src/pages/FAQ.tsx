@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header";
+import WhatsAppRedirect from "@/components/WhatsApp/WhatsAppRedirect";
 import Footer from "@/components/layout/Footer";
 import {
   Accordion,
@@ -8,12 +9,8 @@ import {
 } from "@/components/ui/accordion";
 
 const FAQ = () => {
-  const faqs = [
-    {
-      question: "How do I place an order?",
-      answer:
-        "Browse our collection, select your preferred items, add them to your cart, and proceed to checkout. After submitting your order, you'll receive our bank account details for payment. Once payment is confirmed, we'll process your order.",
-    },
+
+const faqs = [
     {
       question: "What payment methods do you accept?",
       answer:
@@ -104,14 +101,11 @@ const FAQ = () => {
             <p className="text-muted-foreground mb-6">
               We're here to help! Reach out to us directly.
             </p>
-            <a
-              href="https://wa.me/08122815425?text=Hello%20Fifi%20Fashion%20Wears,%20I%20have%20a%20question."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-700 transition-colors"
-            >
-              Chat on WhatsApp
-            </a>
+            <WhatsAppRedirect phone={"08122815425"} defaultMessage={"Hello Fifi Fashion Wears, I have a question."}>
+              <a href="#" onClick={(e) => e.preventDefault()} className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-700 transition-colors">
+                Chat on WhatsApp
+              </a>
+            </WhatsAppRedirect>
           </div>
         </div>
       </main>

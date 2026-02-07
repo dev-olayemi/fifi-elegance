@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Header from "@/components/layout/Header";
+import WhatsAppRedirect from "@/components/WhatsApp/WhatsAppRedirect";
 import Footer from "@/components/layout/Footer";
 import CartSidebar from "@/components/cart/CartSidebar";
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,6 @@ import { MessageCircle, Scissors, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 
 const Bespoke = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -20,11 +20,10 @@ const Bespoke = () => {
     budget: "",
     deadline: "",
   });
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target as HTMLInputElement;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 

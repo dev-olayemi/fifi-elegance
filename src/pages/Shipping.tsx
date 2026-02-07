@@ -1,5 +1,6 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import WhatsAppRedirect from "@/components/WhatsApp/WhatsAppRedirect";
 import { Truck, Clock, MapPin, Package } from "lucide-react";
 
 const Shipping = () => {
@@ -142,14 +143,11 @@ const Shipping = () => {
                 <p className="text-muted-foreground mb-4">
                   We ship worldwide! For international orders, please contact us via WhatsApp for shipping quotes and estimated delivery times.
                 </p>
-                <a
-                  href="https://wa.me/08122815425?text=Hello%20Fifi%20Fashion%20Wears,%20I%20would%20like%20to%20inquire%20about%20international%20shipping."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-gold hover:underline"
-                >
-                  Contact us for international shipping →
-                </a>
+                <WhatsAppRedirect phone={"08122815425"} defaultMessage={"Hello Fifi Fashion Wears, I would like to inquire about international shipping."}>
+                  <a className="inline-flex items-center gap-2 text-gold hover:underline" href="#" onClick={(e) => e.preventDefault()}>
+                    Contact us for international shipping →
+                  </a>
+                </WhatsAppRedirect>
               </div>
             </div>
           </div>

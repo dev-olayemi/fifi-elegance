@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header";
+import WhatsAppRedirect from "@/components/WhatsApp/WhatsAppRedirect";
 import Footer from "@/components/layout/Footer";
 import CartSidebar from "@/components/cart/CartSidebar";
 import { Button } from "@/components/ui/button";
@@ -10,9 +11,8 @@ const Contact = () => {
   const whatsappNumber = "08122815425";
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <Header />
-      <CartSidebar />
       <main className="pt-24 md:pt-28">
         {/* Hero */}
         <section className="bg-navy text-cream py-16 md:py-24">
@@ -176,3 +176,4 @@ const Contact = () => {
 };
 
 export default Contact;
+

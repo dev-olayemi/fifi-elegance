@@ -12,6 +12,7 @@ import { activityLogger } from "@/utils/activityLogger";
 import ProductCard from "@/components/products/ProductCard";
 import SEOMetaTags from "@/components/SEO/SEOMetaTags";
 import StructuredData from "@/components/SEO/StructuredData";
+import WhatsAppRedirect from "@/components/WhatsApp/WhatsAppRedirect";
 import { toast } from "sonner";
 
 const ProductDetail = () => {

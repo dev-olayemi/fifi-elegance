@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
+import WhatsAppRedirect from "@/components/WhatsApp/WhatsAppRedirect";
 import Footer from "@/components/layout/Footer";
 import CartSidebar from "@/components/cart/CartSidebar";
 import { Button } from "@/components/ui/button";
@@ -10,11 +11,9 @@ import { useCart } from "@/hooks/useCart";
 import { activityLogger } from "@/utils/activityLogger";
 import { ArrowLeft, Copy, MessageCircle, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
-
 const Checkout = () => {
   const { cartItems, getCartTotal, clearCart } = useCart();
-  const [step, setStep] = useState<"details" | "payment" | "confirmation">("details");
-  const [orderRef, setOrderRef] = useState("");
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -25,13 +24,11 @@ const Checkout = () => {
     state: "",
   });
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("en-NG", {
-      style: "currency",
-      currency: "NGN",
-      minimumFractionDigits: 0,
-    }).format(price);
-  };
+  const [step, setStep] = useState<"details" | "payment" | "confirmation">("details");
+  const [orderRef, setOrderRef] = useState("");
+
+  const formatPrice = (price: number) =>
+    new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", minimumFractionDigits: 0 }).format(price);
 
   const generateOrderRef = () => {
     const timestamp = Date.now().toString(36).toUpperCase();

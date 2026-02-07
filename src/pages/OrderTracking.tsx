@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Header from "@/components/layout/Header";
+import WhatsAppRedirect from "@/components/WhatsApp/WhatsAppRedirect";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -159,14 +160,11 @@ const OrderTracking = () => {
               <p className="text-sm text-muted-foreground mb-4">
                 If you have questions about your order, contact us directly.
               </p>
-              <a
-                href="https://wa.me/08122815425?text=Hello%20Fifi%20Fashion%20Wears,%20I%20need%20help%20tracking%20my%20order."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-gold hover:underline"
-              >
-                Chat with us on WhatsApp →
-              </a>
+                <WhatsAppRedirect phone={"08122815425"} defaultMessage={"Hello Fifi Fashion Wears, I need help tracking my order."}>
+                  <a href="#" onClick={(e) => e.preventDefault()} className="inline-flex items-center gap-2 text-gold hover:underline">
+                    Chat with us on WhatsApp →
+                  </a>
+                </WhatsAppRedirect>
             </div>
           </div>
         </div>
